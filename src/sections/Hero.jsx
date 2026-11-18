@@ -1,5 +1,230 @@
-import {motion,useReducedMotion} from 'framer-motion';
-import {ArrowUpRight,ArrowDownRight,Download, Github, Sparkles,Code2} from 'lucide-react';
-import {profile} from '../data/portfolio';
-const rise={hidden:{opacity:0,y:42},show:{opacity:1,y:0}};
-export default function Hero(){const reduce=useReducedMotion();return <section id="home" className="hero-new relative isolate overflow-hidden bg-[#0d1215] text-ivory"><div className="hero-grid absolute inset-0 opacity-30" aria-hidden="true"/><div className="absolute -right-32 top-0 h-[600px] w-[600px] rounded-full bg-mint/10 blur-[110px]"/><div className="relative mx-auto max-w-[1500px] px-6 pb-14 pt-20 md:px-12 lg:pb-20 lg:pt-28"><motion.div initial={reduce?false:'hidden'} animate="show" transition={{staggerChildren:.11}} className="relative z-10"><motion.div variants={rise} className="mb-10 flex flex-wrap items-center gap-4"><span className="inline-flex items-center gap-2 rounded-full border border-mint/40 bg-mint/10 px-4 py-2 text-[11px] font-bold uppercase tracking-[.17em] text-mint"><span className="availability-dot h-2 w-2 rounded-full bg-mint"/> Flutter developer · Mobile engineer</span><span className="text-xs uppercase tracking-[.2em] text-white/40">Based in Pakistan · Working worldwide</span></motion.div><div className="relative"><motion.p variants={rise} className="mb-2 font-display text-xl font-semibold text-white/60 md:text-2xl">Hello, world. I'm</motion.p><h1 className="hero-name relative z-10 font-display font-bold uppercase leading-[.84] tracking-[-.085em]"><motion.span variants={rise} className="block">MUHAMMAD</motion.span><motion.span variants={rise} className="block text-mint">IBRAHIM</motion.span><motion.span variants={rise} className="block text-yellow">TAHIR<span className="text-pink">.</span></motion.span></h1><motion.div variants={rise} className="hero-phone absolute right-[4%] top-[2%] hidden rotate-[11deg] lg:block" aria-label="DigiKhata application screenshot"><div className="relative"><div className="phone-glow absolute -inset-10 rounded-full bg-mint/30 blur-[75px]"/><div className="relative h-[420px] w-[215px] overflow-hidden rounded-[2.5rem] border-[9px] border-[#30363a] bg-white shadow-[0_45px_100px_rgba(0,0,0,.65)] xl:h-[500px] xl:w-[250px]"><img src={`${import.meta.env.BASE_URL}projects/digikhata-dashboard.webp`} alt="Real DigiKhata dashboard built with Flutter" className="h-full w-full object-fill" fetchPriority="high"/></div><div className="absolute -left-32 top-16 -rotate-[14deg] rounded-2xl border border-ink bg-yellow px-5 py-4 font-display text-lg font-bold text-ink shadow-2xl"><Code2 className="mb-2"/> FLUTTER<br/>ENGINEER</div><div className="absolute -right-16 bottom-16 -rotate-[12deg] rounded-2xl border border-ink bg-pink px-5 py-3 font-display text-base font-bold text-ink shadow-2xl"><Sparkles size={18}/> REAL APPS.<br/>REAL IMPACT.</div></div></motion.div></div><motion.div variants={rise} className="mt-10 flex flex-col gap-7 lg:flex-row lg:items-end lg:justify-between"><div><p className="max-w-xl text-base leading-relaxed text-white/65 md:text-lg">I craft mobile experiences that look exceptional, solve real problems, with thoughtful UI and dependable backend integrations.</p><div className="mt-7 flex flex-wrap gap-3"><a href="#work" className="pill-cta inline-flex items-center gap-2 rounded-full bg-mint px-7 py-4 font-bold text-ink">Explore my work <ArrowUpRight size={19}/></a><a href={`${import.meta.env.BASE_URL}Muhammad-Ibrahim-Tahir-Resume.pdf`} download className="inline-flex items-center gap-2 rounded-full border border-white/35 px-7 py-4 font-bold text-white transition hover:border-yellow hover:text-yellow"><Download size={18}/> Resume</a><a href={profile.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub profile" className="inline-flex items-center rounded-full border border-white/35 p-4 text-white transition hover:border-mint hover:text-mint"><Github size={19}/></a></div></div><a href="#about" className="inline-flex items-center gap-3 text-xs font-bold uppercase tracking-[.2em] text-white/50 transition hover:text-mint">Scroll to discover <ArrowDownRight size={18}/></a></motion.div></motion.div></div><div className="marquee-wrap relative overflow-hidden border-y border-white/15 bg-mint py-4 text-ink" aria-label="Technology stack"><div className="marquee-track flex w-max gap-10 font-display text-sm font-bold uppercase tracking-[.16em]">{Array.from({length:4},(_,i)=><span key={i} className="flex items-center gap-10">FLUTTER <span>✳</span> DART <span>✳</span> SUPABASE <span>✳</span> GETX <span>✳</span> CLEAN ARCHITECTURE <span>✳</span></span>)}</div></div></section>}
+
+import { motion, useReducedMotion } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import {
+  ArrowUpRight,
+  ArrowDownRight,
+  Download,
+  Github,
+  Sparkles,
+  Code2,
+} from 'lucide-react';
+
+import { profile } from '../data/portfolio';
+
+const rise = {
+  hidden: { opacity: 0, y: 42 },
+  show: { opacity: 1, y: 0 },
+};
+
+export default function Hero() {
+  const prefersReducedMotion = useReducedMotion();
+  const [isMobile, setIsMobile] = useState(true);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 767px)');
+
+    const updateMobile = () => {
+      setIsMobile(mediaQuery.matches);
+    };
+
+    updateMobile();
+
+    mediaQuery.addEventListener('change', updateMobile);
+
+    return () => {
+      mediaQuery.removeEventListener('change', updateMobile);
+    };
+  }, []);
+
+  const disableMotion = prefersReducedMotion || isMobile;
+
+  const animationProps = disableMotion
+    ? {}
+    : { variants: rise };
+
+  return (
+    <section
+      id="home"
+      className="hero-new relative isolate overflow-hidden bg-[#0d1215] text-ivory"
+    >
+      {/* Background grid */}
+      <div
+        className="hero-grid pointer-events-none absolute inset-0 opacity-30"
+        aria-hidden="true"
+      />
+
+      {/* Desktop background glow only */}
+      <div
+        className="pointer-events-none absolute -right-32 top-0 hidden h-[600px] w-[600px] rounded-full bg-mint/10 blur-[110px] lg:block"
+        aria-hidden="true"
+      />
+
+      <div className="relative mx-auto max-w-[1500px] px-5 pb-12 pt-12 sm:px-6 md:px-12 md:pt-20 lg:pb-20 lg:pt-28">
+        <motion.div
+          initial={disableMotion ? false : 'hidden'}
+          animate="show"
+          transition={
+            disableMotion ? undefined : { staggerChildren: 0.11 }
+          }
+          className="relative z-10"
+        >
+          {/* Availability and location */}
+          <motion.div
+            {...animationProps}
+            className="mb-8 flex flex-col items-start gap-3 sm:mb-10 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4"
+          >
+            <span className="inline-flex max-w-full items-center gap-2 rounded-full border border-mint/40 bg-mint/10 px-4 py-2 text-[10px] font-bold uppercase tracking-[.12em] text-mint sm:text-[11px] sm:tracking-[.17em]">
+              <span className="availability-dot h-2 w-2 shrink-0 rounded-full bg-mint" />
+              Flutter developer · Mobile engineer
+            </span>
+
+            <span className="text-[10px] uppercase tracking-[.14em] text-white/45 sm:text-xs sm:tracking-[.2em]">
+              Based in Pakistan · Working worldwide
+            </span>
+          </motion.div>
+
+          {/* Main heading */}
+          <div className="relative">
+            <motion.p
+              {...animationProps}
+              className="mb-4 font-display text-lg font-semibold text-white/60 sm:text-xl md:text-2xl"
+            >
+              Hello, world. I'm
+            </motion.p>
+
+            <h1 className="hero-name relative z-10 font-display font-bold uppercase leading-[.9] tracking-[-.075em] sm:leading-[.84] sm:tracking-[-.085em]">
+              <motion.span
+                {...animationProps}
+                className="block"
+              >
+                MUHAMMAD
+              </motion.span>
+
+              <motion.span
+                {...animationProps}
+                className="block text-mint"
+              >
+                IBRAHIM
+              </motion.span>
+
+              <motion.span
+                {...animationProps}
+                className="block text-yellow"
+              >
+                TAHIR
+                <span className="text-pink">.</span>
+              </motion.span>
+            </h1>
+
+            {/* Desktop-only phone mockup */}
+            <motion.div
+              {...animationProps}
+              className="hero-phone absolute right-[4%] top-[2%] hidden rotate-[11deg] lg:block"
+              aria-label="DigiKhata application screenshot"
+            >
+              <div className="relative">
+                <div className="phone-glow absolute -inset-10 rounded-full bg-mint/30 blur-[75px]" />
+
+                <div className="relative h-[420px] w-[215px] overflow-hidden rounded-[2.5rem] border-[9px] border-[#30363a] bg-white shadow-[0_45px_100px_rgba(0,0,0,.65)] xl:h-[500px] xl:w-[250px]">
+                  <img
+                    src={`${import.meta.env.BASE_URL}projects/digikhata-dashboard.webp`}
+                    alt="Real DigiKhata dashboard built with Flutter"
+                    className="h-full w-full object-fill"
+                    fetchPriority="high"
+                  />
+                </div>
+
+                <div className="absolute -left-32 top-16 -rotate-[14deg] rounded-2xl border border-ink bg-yellow px-5 py-4 font-display text-lg font-bold text-ink shadow-2xl">
+                  <Code2 className="mb-2" />
+                  FLUTTER
+                  <br />
+                  ENGINEER
+                </div>
+
+                <div className="absolute -right-16 bottom-16 -rotate-[12deg] rounded-2xl border border-ink bg-pink px-5 py-3 font-display text-base font-bold text-ink shadow-2xl">
+                  <Sparkles size={18} />
+                  REAL APPS.
+                  <br />
+                  REAL IMPACT.
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Description and buttons */}
+          <motion.div
+            {...animationProps}
+            className="mt-9 flex flex-col gap-8 sm:mt-10 lg:flex-row lg:items-end lg:justify-between"
+          >
+            <div className="min-w-0">
+              <p className="max-w-xl text-base leading-relaxed text-white/65 md:text-lg">
+                I craft mobile experiences that look exceptional,
+                solve real problems, with thoughtful UI and
+                dependable backend integrations.
+              </p>
+
+              <div className="mt-7 flex flex-wrap gap-3">
+                <a
+                  href="#work"
+                  className="pill-cta inline-flex items-center justify-center gap-2 rounded-full bg-mint px-6 py-4 text-sm font-bold text-ink transition hover:brightness-110 sm:px-7 sm:text-base"
+                >
+                  Explore my work
+                  <ArrowUpRight size={19} />
+                </a>
+
+                <a
+                  href={`${import.meta.env.BASE_URL}Muhammad-Ibrahim-Tahir-Resume.pdf`}
+                  download
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-white/35 px-6 py-4 text-sm font-bold text-white transition hover:border-yellow hover:text-yellow sm:px-7 sm:text-base"
+                >
+                  <Download size={18} />
+                  Resume
+                </a>
+
+                <a
+                  href={profile.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="GitHub profile"
+                  className="inline-flex items-center justify-center rounded-full border border-white/35 p-4 text-white transition hover:border-mint hover:text-mint"
+                >
+                  <Github size={19} />
+                </a>
+              </div>
+            </div>
+
+            <a
+              href="#about"
+              className="inline-flex items-center gap-3 text-xs font-bold uppercase tracking-[.2em] text-white/50 transition hover:text-mint"
+            >
+              Scroll to discover
+              <ArrowDownRight size={18} />
+            </a>
+          </motion.div>
+        </motion.div>
+      </div>
+
+      {/* Technology marquee */}
+      <div
+        className="marquee-wrap relative overflow-hidden border-y border-white/15 bg-mint py-4 text-ink"
+        aria-label="Technology stack"
+      >
+        <div className="marquee-track flex w-max gap-10 font-display text-sm font-bold uppercase tracking-[.16em]">
+          {Array.from({ length: 4 }, (_, i) => (
+            <span
+              key={i}
+              className="flex items-center gap-10"
+            >
+              FLUTTER <span>✳</span>
+              DART <span>✳</span>
+              SUPABASE <span>✳</span>
+              GETX <span>✳</span>
+              CLEAN ARCHITECTURE <span>✳</span>
+            </span>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
