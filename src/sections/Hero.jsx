@@ -1,6 +1,4 @@
 
-import { motion, useReducedMotion } from 'framer-motion';
-import { useEffect, useState } from 'react';
 import {
   ArrowUpRight,
   ArrowDownRight,
@@ -12,37 +10,7 @@ import {
 
 import { profile } from '../data/portfolio';
 
-const rise = {
-  hidden: { opacity: 0, y: 42 },
-  show: { opacity: 1, y: 0 },
-};
-
 export default function Hero() {
-  const prefersReducedMotion = useReducedMotion();
-  const [isMobile, setIsMobile] = useState(true);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(max-width: 767px)');
-
-    const updateMobile = () => {
-      setIsMobile(mediaQuery.matches);
-    };
-
-    updateMobile();
-
-    mediaQuery.addEventListener('change', updateMobile);
-
-    return () => {
-      mediaQuery.removeEventListener('change', updateMobile);
-    };
-  }, []);
-
-  const disableMotion = prefersReducedMotion || isMobile;
-
-  const animationProps = disableMotion
-    ? {}
-    : { variants: rise };
-
   return (
     <section
       id="home"
@@ -50,30 +18,20 @@ export default function Hero() {
     >
       {/* Background grid */}
       <div
-        className="hero-grid pointer-events-none absolute inset-0 opacity-30"
+        className="hero-grid pointer-events-none absolute inset-0 hidden opacity-30 lg:block"
         aria-hidden="true"
       />
 
-      {/* Desktop background glow only */}
+      {/* Desktop background glow */}
       <div
         className="pointer-events-none absolute -right-32 top-0 hidden h-[600px] w-[600px] rounded-full bg-mint/10 blur-[110px] lg:block"
         aria-hidden="true"
       />
 
       <div className="relative mx-auto max-w-[1500px] px-5 pb-12 pt-12 sm:px-6 md:px-12 md:pt-20 lg:pb-20 lg:pt-28">
-        <motion.div
-          initial={disableMotion ? false : 'hidden'}
-          animate="show"
-          transition={
-            disableMotion ? undefined : { staggerChildren: 0.11 }
-          }
-          className="relative z-10"
-        >
+        <div className="relative z-10">
           {/* Availability and location */}
-          <motion.div
-            {...animationProps}
-            className="mb-8 flex flex-col items-start gap-3 sm:mb-10 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4"
-          >
+          <div className="mb-8 flex flex-col items-start gap-3 sm:mb-10 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
             <span className="inline-flex max-w-full items-center gap-2 rounded-full border border-mint/40 bg-mint/10 px-4 py-2 text-[10px] font-bold uppercase tracking-[.12em] text-mint sm:text-[11px] sm:tracking-[.17em]">
               <span className="availability-dot h-2 w-2 shrink-0 rounded-full bg-mint" />
               Flutter developer · Mobile engineer
@@ -82,44 +40,31 @@ export default function Hero() {
             <span className="text-[10px] uppercase tracking-[.14em] text-white/45 sm:text-xs sm:tracking-[.2em]">
               Based in Pakistan · Working worldwide
             </span>
-          </motion.div>
+          </div>
 
           {/* Main heading */}
           <div className="relative">
-            <motion.p
-              {...animationProps}
-              className="mb-4 font-display text-lg font-semibold text-white/60 sm:text-xl md:text-2xl"
-            >
+            <p className="mb-4 font-display text-lg font-semibold text-white/60 sm:text-xl md:text-2xl">
               Hello, world. I'm
-            </motion.p>
+            </p>
 
             <h1 className="hero-name relative z-10 font-display font-bold uppercase leading-[.9] tracking-[-.075em] sm:leading-[.84] sm:tracking-[-.085em]">
-              <motion.span
-                {...animationProps}
-                className="block"
-              >
+              <span className="block">
                 MUHAMMAD
-              </motion.span>
+              </span>
 
-              <motion.span
-                {...animationProps}
-                className="block text-mint"
-              >
+              <span className="block text-mint">
                 IBRAHIM
-              </motion.span>
+              </span>
 
-              <motion.span
-                {...animationProps}
-                className="block text-yellow"
-              >
+              <span className="block text-yellow">
                 TAHIR
                 <span className="text-pink">.</span>
-              </motion.span>
+              </span>
             </h1>
 
-            {/* Desktop-only phone mockup */}
-            <motion.div
-              {...animationProps}
+            {/* Desktop-only DigiKhata phone mockup */}
+            <div
               className="hero-phone absolute right-[4%] top-[2%] hidden rotate-[11deg] lg:block"
               aria-label="DigiKhata application screenshot"
             >
@@ -149,14 +94,11 @@ export default function Hero() {
                   REAL IMPACT.
                 </div>
               </div>
-            </motion.div>
+            </div>
           </div>
 
           {/* Description and buttons */}
-          <motion.div
-            {...animationProps}
-            className="mt-9 flex flex-col gap-8 sm:mt-10 lg:flex-row lg:items-end lg:justify-between"
-          >
+          <div className="mt-9 flex flex-col gap-8 sm:mt-10 lg:flex-row lg:items-end lg:justify-between">
             <div className="min-w-0">
               <p className="max-w-xl text-base leading-relaxed text-white/65 md:text-lg">
                 I craft mobile experiences that look exceptional,
@@ -201,8 +143,8 @@ export default function Hero() {
               Scroll to discover
               <ArrowDownRight size={18} />
             </a>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </div>
 
       {/* Technology marquee */}
