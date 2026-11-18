@@ -394,3 +394,25 @@ button {
     mask-image: none !important;
   }
 }
+/* iOS Hero rendering diagnostic */
+@supports (-webkit-touch-callout: none) {
+  @media (max-width: 767px) {
+    .hero-new,
+    .hero-new * {
+      -webkit-transform: none !important;
+      transform: none !important;
+      -webkit-filter: none !important;
+      filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      backdrop-filter: none !important;
+    }
+
+    .hero-new .hero-grid {
+      display: none !important;
+    }
+
+    .hero-new .marquee-track {
+      animation: none !important;
+    }
+  }
+}
