@@ -369,3 +369,28 @@ button {
     transition: none !important;
   }
 }
+
+/* iPhone Safari: render the mobile Hero as one opaque, flat surface. */
+@media (max-width: 767px) {
+  #home.hero-new {
+    background: #0d1215 !important;
+    background-image: none !important;
+    isolation: isolate;
+  }
+  #home .hero-grid,
+  #home .phone-glow,
+  #home .hero-phone {
+    display: none !important;
+  }
+  #home::before,
+  #home::after {
+    content: none !important;
+  }
+  #home .hero-name,
+  #home .hero-name > span {
+    filter: none !important;
+    -webkit-filter: none !important;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+  }
+}
