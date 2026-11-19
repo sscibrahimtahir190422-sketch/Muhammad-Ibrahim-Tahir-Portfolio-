@@ -28,7 +28,7 @@ export default function Navbar() {
   const closeMenu = () => setOpen(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-[#101419] text-white">
+    <header className="sticky top-0 z-0 border-b border-white/10 bg-[#101419] text-white lg:z-50">
       <nav
         aria-label="Main navigation"
         className="mx-auto flex min-h-20 max-w-7xl items-center justify-between gap-4 px-6 py-3 md:px-10"
