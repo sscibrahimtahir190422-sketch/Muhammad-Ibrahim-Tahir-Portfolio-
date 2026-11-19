@@ -1,14 +1,5 @@
-# Portfolio review and iPhone issue
+# iPhone repaint experiment (not verified on device)
 
-Reviewed React entry, Navbar, Hero, all sections, Tailwind CSS, Vite config, package manifest, public assets, and HTML.
+Restores charcoal Hero background and original portfolio layout; removes inspector; tests a two-frame repaint on mobile on initial mount and pageshow, based on the observation that opening the menu repaints the black tile. This is experimental and not a confirmed root-cause fix. No desktop style changes intended.
 
-## Changes
-- Removed overlapping temporary iOS diagnostic CSS overrides.
-- Preserved the full navbar, sections, project data and visual design.
-- Added opt-in iPhone overlay inspector. Open the deployed site with `?inspect=1` and take a screenshot of the mint debug panel while the black rectangle is visible. Normal visitors see no panel.
-
-## Important
-The black rectangle is not reproducibly diagnosed by source inspection alone. The screenshot suggests an obscuring paint/layer, but the offending element is not established. This package is a clean baseline with a targeted diagnostic, not a verified iOS fix.
-
-## Install and test
-`npm ci` then `npm run build`. Push changes to your GitHub main branch to deploy. Test iPhone Safari, including `?inspect=1`.
+Run npm install and npm run build locally. Compare initial iPhone load without opening the menu. If still present, revert this experiment; remote Safari Web Inspector layers/compositing diagnostics are needed.

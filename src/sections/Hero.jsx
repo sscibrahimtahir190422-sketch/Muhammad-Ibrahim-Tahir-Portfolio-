@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 
 import {
   ArrowUpRight,
@@ -11,10 +12,35 @@ import {
 import { profile } from '../data/portfolio';
 
 export default function Hero() {
+  const heroRef = useRef(null);
+
+  useEffect(() => {
+    const hero = heroRef.current;
+    if (!hero || !window.matchMedia('(max-width: 767px)').matches) return;
+    let frame1 = 0;
+    let frame2 = 0;
+    const repaint = () => {
+      hero.style.setProperty('opacity', '0.999');
+      frame1 = requestAnimationFrame(() => {
+        frame2 = requestAnimationFrame(() => {
+          hero.style.removeProperty('opacity');
+        });
+      });
+    };
+    repaint();
+    window.addEventListener('pageshow', repaint);
+    return () => {
+      cancelAnimationFrame(frame1);
+      cancelAnimationFrame(frame2);
+      hero.style.removeProperty('opacity');
+      window.removeEventListener('pageshow', repaint);
+    };
+  }, []);
   return (
     <section
+      ref={heroRef}
       id="home"
-      className="hero-new relative overflow-hidden bg-[#0d1215] text-ivory lg:isolate"
+      className="hero-new relative isolate overflow-hidden bg-[#0d1215] text-ivory"
     >
       {/* Background grid */}
       <div
@@ -29,7 +55,7 @@ export default function Hero() {
       />
 
       <div className="relative mx-auto max-w-[1500px] px-5 pb-12 pt-12 sm:px-6 md:px-12 md:pt-20 lg:pb-20 lg:pt-28">
-        <div className="relative lg:z-10">
+        <div className="relative z-10">
           {/* Availability and location */}
           <div className="mb-8 flex flex-col items-start gap-3 sm:mb-10 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
             <span className="inline-flex max-w-full items-center gap-2 rounded-full border border-mint/40 bg-mint/10 px-4 py-2 text-[10px] font-bold uppercase tracking-[.12em] text-mint sm:text-[11px] sm:tracking-[.17em]">
@@ -48,7 +74,7 @@ export default function Hero() {
               Hello, world. I'm
             </p>
 
-            <h1 className="hero-name relative font-display lg:z-10 font-bold uppercase leading-[.9] tracking-[-.075em] sm:leading-[.84] sm:tracking-[-.085em]">
+            <h1 className="hero-name relative z-10 font-display font-bold uppercase leading-[.9] tracking-[-.075em] sm:leading-[.84] sm:tracking-[-.085em]">
               <span className="block">
                 MUHAMMAD
               </span>

@@ -107,6 +107,7 @@ button {
 
 .hero-new {
   position: relative;
+  isolation: isolate;
   overflow: hidden;
   background-color: #0d1215;
 }
@@ -267,6 +268,7 @@ button {
 
 @media (max-width: 767px) {
   .hero-new {
+    isolation: auto;
     overflow: hidden;
     min-height: auto;
   }
@@ -284,6 +286,7 @@ button {
 
   .hero-name {
     position: relative;
+    z-index: 2;
     font-size: clamp(2.5rem, 10.5vw, 5.2rem);
     line-height: 0.94;
     letter-spacing: -0.075em;
@@ -367,23 +370,10 @@ button {
   }
 }
 
-/* iPhone WebKit paint workaround: match the observed black tile to the
-   mobile Hero surface without affecting desktop's charcoal background. */
+
+/* Mobile Hero: restore the original charcoal background and avoid paint layers. */
 @media (max-width: 767px) {
-  #home.hero-new {
-    isolation: auto;
-    background: #000 !important;
-    background-image: none !important;
-  }
-
-  #home .hero-grid,
-  #home .hero-phone,
-  #home .phone-glow {
-    display: none !important;
-  }
-
-  #home .marquee-track {
-    animation: none;
-    will-change: auto;
-  }
+  #home.hero-new { background-color: #0d1215 !important; isolation: auto; }
+  #home .hero-grid, #home .hero-phone, #home .phone-glow { display: none !important; }
+  #home .marquee-track { animation: none !important; will-change: auto; }
 }
