@@ -370,22 +370,26 @@ button {
   }
 }
 
-/* iPhone Safari: render the mobile Hero as one opaque, flat surface. */
+/* Mobile Hero flat background diagnostic */
+
 @media (max-width: 767px) {
   #home.hero-new {
     background: #0d1215 !important;
     background-image: none !important;
     isolation: isolate;
   }
+
   #home .hero-grid,
   #home .phone-glow,
   #home .hero-phone {
     display: none !important;
   }
+
   #home::before,
   #home::after {
     content: none !important;
   }
+
   #home .hero-name,
   #home .hero-name > span {
     filter: none !important;
@@ -394,7 +398,9 @@ button {
     mask-image: none !important;
   }
 }
+
 /* iOS Hero rendering diagnostic */
+
 @supports (-webkit-touch-callout: none) {
   @media (max-width: 767px) {
     .hero-new,
@@ -414,5 +420,13 @@ button {
     .hero-new .marquee-track {
       animation: none !important;
     }
+  }
+}
+
+/* TEMPORARY TEST: Hide mobile navbar */
+
+@media (max-width: 767px) {
+  header {
+    display: none !important;
   }
 }
