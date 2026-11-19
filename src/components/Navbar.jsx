@@ -56,7 +56,7 @@ export default function Navbar() {
             <a
               key={href}
               href={href}
-              className="text-sm font-semibold text-white/65 transition hover:text-mint"
+              className="text-sm font-semibold text-white/80 transition hover:text-mint"
             >
               {label}
             </a>
@@ -120,7 +120,7 @@ export default function Navbar() {
                 >
                   {label}
 
-                  <span className="text-sm text-white/40">
+                  <span className="text-sm text-white/70">
                     0{index + 1}
                   </span>
                 </a>

@@ -63,14 +63,14 @@ export default function Hero() {
               Flutter developer · Mobile engineer
             </span>
 
-            <span className="text-[10px] uppercase tracking-[.14em] text-white/45 sm:text-xs sm:tracking-[.2em]">
+            <span className="text-[10px] uppercase tracking-[.14em] text-white/75 sm:text-xs sm:tracking-[.2em]">
               Based in Pakistan · Working worldwide
             </span>
           </div>
 
           {/* Main heading */}
           <div className="relative">
-            <p className="mb-4 font-display text-lg font-semibold text-white/60 sm:text-xl md:text-2xl">
+            <p className="mb-4 font-display text-lg font-semibold text-white/75 sm:text-xl md:text-2xl">
               Hello, world. I'm
             </p>
 
@@ -99,7 +99,9 @@ export default function Hero() {
 
                 <div className="relative h-[420px] w-[215px] overflow-hidden rounded-[2.5rem] border-[9px] border-[#30363a] bg-white shadow-[0_45px_100px_rgba(0,0,0,.65)] xl:h-[500px] xl:w-[250px]">
                   <img
-                    src={`${import.meta.env.BASE_URL}projects/digikhata-dashboard.webp`}
+                    src={`${import.meta.env.BASE_URL}projects/digikhata-dashboard-360.webp`}
+                    width="360"
+                    height="807"
                     alt="Real DigiKhata dashboard built with Flutter"
                     className="h-full w-full object-fill"
                     fetchPriority="high"
@@ -164,7 +166,7 @@ export default function Hero() {
 
             <a
               href="#about"
-              className="inline-flex items-center gap-3 text-xs font-bold uppercase tracking-[.2em] text-white/50 transition hover:text-mint"
+              className="inline-flex items-center gap-3 text-xs font-bold uppercase tracking-[.2em] text-white/75 transition hover:text-mint"
             >
               Scroll to discover
               <ArrowDownRight size={18} />
