@@ -107,7 +107,6 @@ button {
 
 .hero-new {
   position: relative;
-  isolation: isolate;
   overflow: hidden;
   background-color: #0d1215;
 }
@@ -268,7 +267,6 @@ button {
 
 @media (max-width: 767px) {
   .hero-new {
-    isolation: auto;
     overflow: hidden;
     min-height: auto;
   }
@@ -286,7 +284,6 @@ button {
 
   .hero-name {
     position: relative;
-    z-index: 2;
     font-size: clamp(2.5rem, 10.5vw, 5.2rem);
     line-height: 0.94;
     letter-spacing: -0.075em;
@@ -370,11 +367,13 @@ button {
   }
 }
 
-/* Keep mobile Hero layers simple and avoid unnecessary GPU layers. */
+/* iPhone WebKit paint workaround: match the observed black tile to the
+   mobile Hero surface without affecting desktop's charcoal background. */
 @media (max-width: 767px) {
   #home.hero-new {
     isolation: auto;
-    background-color: #0d1215;
+    background: #000 !important;
+    background-image: none !important;
   }
 
   #home .hero-grid,
