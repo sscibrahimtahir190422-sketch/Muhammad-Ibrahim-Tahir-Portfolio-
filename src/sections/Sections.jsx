@@ -3,7 +3,28 @@ import { motion, useReducedMotion, AnimatePresence } from 'framer-motion';
 import { ArrowUpRight, Github, Mail, Download, Linkedin, X, ChevronLeft, ChevronRight, BriefcaseBusiness, GraduationCap, MapPin, Smartphone, Layers3, Wrench, Images, ShieldCheck, Blocks, Bot, ChartNoAxesCombined, Vote, UsersRound, LockKeyhole, Sparkles, ArrowRight } from 'lucide-react';
 import { profile, projects, skills } from '../data/portfolio';
 export function About(){const reduced=useReducedMotion();return <section id="about" className="relative overflow-hidden bg-pink px-6 py-24 text-ink md:px-10 lg:py-32"><div aria-hidden="true" className="absolute -right-20 -top-24 h-72 w-72 rounded-full border-[55px] border-white/30"/><div className="relative mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1.1fr_.9fr] lg:gap-20"><motion.div initial={reduced?false:{opacity:0,y:30}} whileInView={{opacity:1,y:0}} viewport={{once:true}}><p className="eyebrow">01 / Behind the code</p><h2 className="section-title">CURIOUS<br/>BY NATURE<span className="text-white">.</span><br/>BUILDER<br/>BY CHOICE<span className="text-white">.</span></h2></motion.div><motion.div initial={reduced?false:{opacity:0,y:35}} whileInView={{opacity:1,y:0}} viewport={{once:true}} className="flex flex-col justify-center"><p className="font-display text-2xl font-bold leading-snug md:text-3xl">I turn complex workflows into mobile experiences people can actually enjoy using.</p><p className="mt-6 text-lg leading-relaxed text-ink/70">I'm Muhammad Ibrahim Tahir, a Flutter developer based in Islamabad, Pakistan. I work across mobile UI, application architecture, and backend integrations — from secure healthcare workflows to everyday business tools.</p><p className="mt-4 leading-relaxed text-ink/70">My approach is simple: understand the problem, design with intention, and build software that lasts.</p><div className="mt-8 flex flex-wrap gap-3"><span className="chip">Flutter-first</span><span className="chip">Product-minded</span><span className="chip">Architecture-focused</span></div><a href="#experience" className="mt-10 inline-flex items-center gap-2 self-start border-b-2 border-ink pb-2 font-bold hover:gap-4">More about my journey <ArrowUpRight size={18}/></a></motion.div></div></section>}
-const projectDetails = {DigiKhata:{challenge:'Shopkeepers need a clear picture of customer credit, repayments, and stock without juggling paper records.',build:'Designed Flutter screens around customer ledgers, transactions, inventory and reports, backed by shop-scoped Supabase data.'},'Shifa Care':{challenge:'Appointment booking and live queues can become confusing for patients and clinical staff.',build:'Built a mobile experience for doctor discovery, appointments and queue visibility using Flutter and backend-connected workflows.'},Bloggers:{challenge:'Reading and publishing posts should feel natural on a mobile device.',build:'Created Flutter interfaces for browsing, composing and reading articles.'},'COVID-19 Tracker':{challenge:'Country-level health statistics can be difficult to navigate quickly.',build:'Organized API-powered global and country data into searchable mobile dashboards.'}};
+const projectDetails = {
+  DigiKhata: {
+    challenge: 'Small businesses need a reliable way to track credit, repayments and stock without relying on paper ledgers.',
+    build: 'A Flutter bookkeeping workflow connecting customer accounts, credit and payment entries, inventory views and reporting screens.',
+    engineering: ['GetX state management with MVVM and repository separation', 'Supabase-backed customer and transaction records', 'Shop-scoped access controls and bilingual English/Urdu UI'],
+  },
+  'Shifa Care': {
+    challenge: 'Patients and clinic staff need clearer appointment scheduling and queue visibility.',
+    build: 'A Flutter appointment and live-queue interface with doctor discovery, booking screens and staff-facing views.',
+    engineering: ['Flutter UI for patient and clinical workflows', 'Supabase integration for application data', 'Queue visibility and role-oriented screen design'],
+  },
+  Bloggers: {
+    challenge: 'Writing and reading articles should feel approachable on a phone.',
+    build: 'A Flutter blogging interface covering post discovery, article creation and reading.',
+    engineering: ['Mobile-first article feed', 'Post composition experience', 'Dedicated article-reading layout'],
+  },
+  'COVID-19 Tracker': {
+    challenge: 'Global and country-specific health statistics need to be easy to browse.',
+    build: 'A Flutter dashboard for exploring worldwide and country-level COVID-19 information.',
+    engineering: ['Global statistics overview', 'Country-specific data screens', 'Searchable country navigation'],
+  },
+};
 const themes = {
   emerald: { panel: 'bg-[#d8f6e9]', accent: 'text-[#116b53]', label: 'bg-[#116b53] text-white' },
   blue: { panel: 'bg-[#dcefff]', accent: 'text-[#1265a5]', label: 'bg-[#1265a5] text-white' },
@@ -57,7 +78,7 @@ function ProjectCard({ project, index, compact = false, onOpen }) {
         <p className={`mb-3 text-xs font-bold uppercase tracking-[.15em] ${theme.accent}`}>{project.type}</p>
         <h3 className={`font-display font-bold tracking-tight ${compact ? 'text-3xl' : 'text-4xl sm:text-5xl'}`}>{project.name}</h3>
         <p className="mt-4 max-w-xl leading-relaxed text-ink/65">{project.description}</p>
-        <div className="mt-5 grid gap-3 border-l-2 border-ink/15 pl-4 text-sm leading-relaxed"><p><strong className="block text-xs uppercase tracking-widest text-ink/70">The challenge</strong>{projectDetails[project.name]?.challenge}</p><p><strong className="block text-xs uppercase tracking-widest text-ink/70">What I built</strong>{projectDetails[project.name]?.build}</p></div><div className="mt-6 flex flex-wrap gap-2">
+        <div className="mt-5 grid gap-3 border-l-2 border-ink/15 pl-4 text-sm leading-relaxed"><p><strong className="block text-xs uppercase tracking-widest text-ink/70">The challenge</strong>{projectDetails[project.name]?.challenge}</p><p><strong className="block text-xs uppercase tracking-widest text-ink/70">The solution</strong>{projectDetails[project.name]?.build}</p></div><div className="mt-5"><h4 className="text-xs font-bold uppercase tracking-widest text-ink/70">Engineering highlights</h4><ul className="mt-3 space-y-2 text-sm leading-relaxed text-ink/80">{projectDetails[project.name]?.engineering.map((highlight) => <li key={highlight} className="flex items-start gap-2"><span aria-hidden="true" className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#116b53]" />{highlight}</li>)}</ul></div><div className="mt-6 flex flex-wrap gap-2">
           {project.tech.map((t) => <span key={t} className="rounded-full bg-ink/5 px-3 py-1.5 text-xs font-bold">{t}</span>)}
         </div>
         <div className="mt-7 flex flex-wrap items-center gap-4">
@@ -92,12 +113,12 @@ export function Work() {
       <div className="mx-auto max-w-7xl">
         <p className="eyebrow">02 / Selected work</p>
         <h2 className="section-title mb-5">PROJECTS<span className="text-[#D65C8B]">.</span></h2>
-        <p className="mb-12 max-w-2xl text-lg leading-relaxed text-ink/75">Four Flutter applications, from everyday business tools to healthcare and content experiences.</p>
+        <p className="mb-12 max-w-2xl text-lg leading-relaxed text-ink/75">Explore four Flutter applications through their challenges, implementation highlights, technologies and actual application screens.</p>
         <div className="grid gap-10">
           {featured.map((project, index) => <ProjectCard key={project.name} project={project} index={index} onOpen={openViewer} />)}
         </div>
         <div className="mb-8 mt-20 flex items-end justify-between gap-4">
-          <div><p className="eyebrow">More experiments</p><h3 className="font-display text-3xl font-bold sm:text-5xl">MORE BUILDS<span className="text-[#D65C8B]">.</span></h3></div>
+          <div><p className="eyebrow">Additional projects</p><h3 className="font-display text-3xl font-bold sm:text-5xl">MORE BUILDS<span className="text-[#D65C8B]">.</span></h3></div>
           <span className="hidden text-sm text-ink/70 sm:block">03 / 04</span>
         </div>
         <div className="grid gap-8 md:grid-cols-2">
